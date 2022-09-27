@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+    environment { 
+        CC = 'clang'
+    }
+     parameters {
+        choice(name: 'CHOICE', choices: ['odd','even'], description: 'Pick something')
+    }
+
+    stages {
+        stage('stage 1') {
+            steps {
+                echo 'Stage 1'
+                
+                script {
+                    if (CHOICE == 'odd') {
+                        echo "odd : Any integer that cannot be divided exactly by 2 is an odd number"
+                    } else if (CHOICE == 'even') {
+                        echo "even : Any integer that can be divided exactly by 2 is an even number"
+                    }
+                }
+            }
+        }
+        stage('stage 2') {
+            steps {
+                script {
+                    if (CHOICE == 'even') {
+                        echo "stage 2"
+                    }
+                }
+            }
+        }
+         stage('stage 3') {
+            steps {
+                script {
+                    if (CHOICE == 'odd') {
+                        echo "stage 3"
+                    }
+                }
+            }
+        }
+         stage('stage 4') {
+            steps {
+                script {
+                    if (CHOICE == 'even') {
+                        echo "stage 4"
+                    }
+                }
+            }
+        }
+        stage('stage 5') {
+            steps {
+                script {
+                    if (CHOICE == 'odd') {
+                        echo "stage 5"
+                    }
+                }
+            }
+        }
+        
+    }
+    post { 
+        always { 
+            echo 'END Job!'
+        }
+    }
+
+}
